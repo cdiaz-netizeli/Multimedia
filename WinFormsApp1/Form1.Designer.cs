@@ -40,6 +40,7 @@
             label2 = new Label();
             Multimedia = new LinkLabel();
             button1 = new Button();
+            Reproductor = new Button();
             SuspendLayout();
             // 
             // BarraProgreso
@@ -132,7 +133,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(277, 440);
+            button1.Location = new Point(277, 387);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 11;
@@ -140,11 +141,22 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // Reproductor
+            // 
+            Reproductor.Location = new Point(55, 462);
+            Reproductor.Name = "Reproductor";
+            Reproductor.Size = new Size(75, 23);
+            Reproductor.TabIndex = 12;
+            Reproductor.Text = "play";
+            Reproductor.UseVisualStyleBackColor = true;
+            Reproductor.Click += Reproductor_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 525);
+            Controls.Add(Reproductor);
             Controls.Add(button1);
             Controls.Add(Multimedia);
             Controls.Add(label2);
@@ -176,5 +188,6 @@
         private Label label2;
         private LinkLabel Multimedia;
         private Button button1;
+        private Button Reproductor;
     }
 }

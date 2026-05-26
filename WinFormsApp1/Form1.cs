@@ -18,7 +18,7 @@ namespace WinFormsApp1
             }
             else
             {
-                MessageBox.Show("Actualizado");
+                //  MessageBox.Show("Actualizado");
             }
 
 
@@ -39,7 +39,7 @@ namespace WinFormsApp1
             else
             {
                 tiempo.Stop();
-                MessageBox.Show("Actualizado");
+                // MessageBox.Show("Actualizado");
             }
         }
 
@@ -62,8 +62,16 @@ namespace WinFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 form2= new Form2();
+            Form2 form2 = new Form2();
             form2.Show();
         }
+
+        private void Reproductor_Click(object sender, EventArgs e)
+        {
+            Rep_Audio form3 = new Rep_Audio();
+            form3.Show();
+        }
+
+ 
     }
 }
