@@ -38,6 +38,7 @@
             button1 = new Button();
             button2 = new Button();
             label1 = new Label();
+            listBox1 = new ListBox();
             ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer1).BeginInit();
             SuspendLayout();
             // 
@@ -125,11 +126,22 @@
             label1.Size = new Size(0, 15);
             label1.TabIndex = 7;
             // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.Location = new Point(297, 6);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(82, 274);
+            listBox1.TabIndex = 8;
+            listBox1.TabStop = false;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            // 
             // Rep_Audio
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(296, 305);
+            ClientSize = new Size(408, 311);
+            Controls.Add(listBox1);
             Controls.Add(label1);
             Controls.Add(button2);
             Controls.Add(button1);
@@ -157,5 +169,6 @@
         private Button button1;
         private Button button2;
         private Label label1;
+        private ListBox listBox1;
     }
 }

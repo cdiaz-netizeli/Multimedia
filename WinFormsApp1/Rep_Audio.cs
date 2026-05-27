@@ -14,7 +14,7 @@ namespace WinFormsApp1
     {
         // private string ruta;
         private IWMPPlaylist playlist;
-
+        private string[] archivosMultimedia;
         public Rep_Audio()
         {
             // ruta = "";
@@ -39,7 +39,7 @@ namespace WinFormsApp1
             if (carpeta.ShowDialog() == DialogResult.OK)
             {
                 // Buscar archivos compatibles
-                string[] archivos = Directory
+                archivosMultimedia = Directory
                     .GetFiles(carpeta.SelectedPath)
                     .Where(x =>
                         x.EndsWith(".mp3") ||
@@ -50,12 +50,14 @@ namespace WinFormsApp1
                     .ToArray();
 
                 // Verificar si hay archivos
-                if (archivos.Length == 0)
+                if (archivosMultimedia.Length == 0)
                 {
                     MessageBox.Show(
                         "No se encontraron archivos multimedia");
                     return;
                 }
+                // Limpiar ListBox
+                listBox1.Items.Clear();
 
                 // Crear playlist
                 playlist = axWindowsMediaPlayer1
@@ -63,10 +65,13 @@ namespace WinFormsApp1
                     .newPlaylist("Mi Playlist");
 
                 // Agregar archivos
-                foreach (string archivo in archivos)
+                foreach (string archivo in archivosMultimedia)
                 {
                     playlist.appendItem(
                         axWindowsMediaPlayer1.newMedia(archivo));
+
+
+                    listBox1.Items.Add( Path.GetFileName(archivo));
                 }
 
                 // Asignar playlist
@@ -107,6 +112,7 @@ namespace WinFormsApp1
         private void button1_Click_1(object sender, EventArgs e)
         {
             axWindowsMediaPlayer1.Ctlcontrols.previous();
+            ActualizarSeleccion();
 
             MostrarNombre();
         }
@@ -114,10 +120,36 @@ namespace WinFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             axWindowsMediaPlayer1.Ctlcontrols.next();
+            ActualizarSeleccion();
 
             MostrarNombre();
         }
 
+        private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        {
+            MostrarNombre();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+             
+            if (listBox1.SelectedIndex >= 0)
+            {
+                axWindowsMediaPlayer1.Ctlcontrols.stop();
+
+                axWindowsMediaPlayer1.URL =
+                    archivosMultimedia[listBox1.SelectedIndex];
+
+                axWindowsMediaPlayer1.Ctlcontrols.play();
+
+                MostrarNombre();
+            }
+        
+
+        }
+
+       
+        // MOSTRAR NOMBRE
         private void MostrarNombre()
         {
             if (axWindowsMediaPlayer1.currentMedia != null)
@@ -127,9 +159,26 @@ namespace WinFormsApp1
             }
         }
 
-        private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        // ACTUALIZAR LISTBOX
+        private void ActualizarSeleccion()
         {
-            MostrarNombre();
+            if (axWindowsMediaPlayer1.currentMedia != null)
+            {
+                string nombreActual =
+                    axWindowsMediaPlayer1.currentMedia.name;
+
+                for (int i = 0;
+                    i < listBox1.Items.Count;
+                    i++)
+                {
+                    if (listBox1.Items[i].ToString().Contains(nombreActual))
+                    {
+                        listBox1.SelectedIndex = i;
+                        break;
+                    }
+                }
+            }
         }
+
     }
 }
